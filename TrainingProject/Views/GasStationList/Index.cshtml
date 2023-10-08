@@ -1,0 +1,176 @@
+﻿@model IPagedList<TrainingProject.ViewModels.GasStationVM>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Mvc.Common;
+@using X.PagedList;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <body>
+        <div class="col-xs-12 col-md-7">
+            <h4>
+                <b>ガソリンスタンド一覧 </b>
+            </h4><br />
+            <form asp-controller="GasStationList" asp-action="Index" method="get">
+                <div class="row ">
+                    <label class=" col-xs-2">ガソリンスタンド名</label>
+                    <div class="col-xs-1"></div>
+                    <input type="text" id="text1" value="@ViewBag.SearchString" name="searchString" class="col-xs-4" autofocus />
+                </div><br />
+                <div class="row">
+                    <div class="col-xs-2">
+                        <label>
+                            種類
+                        </label>
+
+                    </div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-4">
+                        @foreach (var type in ViewBag.getType)
+                        {
+                            <div class="col-xs-8">
+                                <input id="@type.TypeType" name="checkCreate" style="margin-right:5%" type="checkbox" value="@type.TypeCode" />
+                                <label id="text3" for="@type.TypeCode">
+                                    @type.TypeText
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-xs-2">地区</label>
+                    <div class="col-xs-1"></div>
+                    <select class="col-xs-4" id="text2" name="searchDistrict"
+                            asp-items="@(new SelectList(@ViewBag.getDistrict,"DistrictId","DistrictName"))">
+                        <option value=""></option>
+                    </select>
+                </div><br />
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button type="submit" style="height:35px" id="btn1" name="SearchString" class=" btn btn-primary  ">
+                            検索
+                        </button>
+                    </div>
+                </div>
+            </form><br />
+            <a asp-action="GasStationAdd">
+                <button id="btn2" style="height:30px" class="btn btn-primary">
+                    登録
+                </button>
+            </a>
+            <br /><br />
+            <table class="table table-bordered table-striped table-hover">
+                <tr>
+                    <td>
+                        ガソリンスタンド名
+                    </td>
+                    <td>
+                        種類
+                    </td>
+                    <td>
+                        地区
+                    </td>
+                    <td>
+                        Longitude, Latitude
+                    </td>
+                    <td>
+                        評価
+                    </td>
+                    <td>Edit</td>
+                    <td>
+                        Del
+                    </td>
+                </tr>
+
+                @if (Model.Count() > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><a href="FeedBackView/Feedback/@item.GasStationId"> @item.GasStationName</a></td>
+                            <td>
+                                @{
+                                    string renderGasType()
+                                    {
+                                        string result = "";
+                                        foreach (var type in item.Types)
+                                        {
+                                            if (string.IsNullOrEmpty(result))
+                                            {
+                                                result += type;
+                                            }
+                                            else
+                                            {
+                                                result += ", " + type;
+                                            }
+                                        }
+                                        return result;
+                                    }
+                                }
+                                @renderGasType()
+                            </td>
+                            <td>
+                                @item.District.DistrictName
+                            </td>
+                            <td>
+                                @item.Longitude,@item.Latitude
+                            </td>
+                            <td>
+                                <img src="~/images/@Html.Raw(@item.Rating + ".png")" alt="@item.Rating" />
+                            </td>
+                            <td>
+                                <a href="/EditGasStation/Edit/@item.GasStationId"> <button class="btn btn-success">Edit</button></a>
+                            </td>
+                            <td>
+                                <a href="/DeleteGasStation/Delete/@item.GasStationId"><button onclick="return confirm('ガソリンスタンド  @item.GasStationName  が削除されました ? ')" class="btn btn-danger">Del</button></a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td class="text-danger" colspan="7">
+                            ログインに失敗しました。電子メールまたはパスワードを確認してください。
+                        </td>
+                    </tr>
+                }
+            </table>
+            @if (Model.Count() > 0)
+            {
+                <div id="page">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+                        new { page }))
+                </div>
+            }
+            else
+            {
+
+            }
+        </div>
+    </body>
+<style>
+
+    #btn1 {
+        margin-left: 24.2%;
+        padding: 10px 40px;
+    }
+    #btn2 {
+        padding: 8px 40px;
+    }
+
+    body {
+    }
+    h4 {
+        text-align: center;
+    }
+
+    #page {
+        text-align: center;
+    }
+    #text3 {
+        font-weight: normal;
+    }
+</style>

@@ -1,0 +1,124 @@
+﻿@model TrainingProject.Models.GasStation
+@using TrainingProject.Models;
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_Layout";
+}
+<body>
+    <div class="row">
+        <div class="col-xs-12 col-md-7">
+            <form class="form-horizontal" asp-action="Edit" asp-controller="EditGasStation" id="edit_form">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger" id="box"></div>
+                <h4 id="text4"><b>ガソリンスタンドを編集</b></h4><br />
+                @if (TempData["checkDupplicate"] != null)
+                {
+                    <p id="exist" class="text-danger">@TempData["checkDupplicate"]</p>
+                }
+                <div class="row">
+                    <label asp-for="GasStationName" class="col-xs-5">
+                        ガソリンスタンド名
+                    </label>
+                    <div class="col-xs-1"></div>
+                    <input asp-for="GasStationName" class="col-xs-6" name="GasStationName" type="text" required autofocus tabindex="1" />
+                    <span asp-validation-for="GasStationName" class="text-danger"></span>
+                </div><br />
+                <div class="row">
+                    <div class="col-xs-5">
+                        <label>地区</label>
+                    </div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-6">
+                        @foreach (var type in ViewBag.Type)
+                        {
+                            <div class="col-xs-10">
+                                <input id="@type.Value" name="type" checked="@type.Selected" type="checkbox" required value="@type.Value" tabindex="2" />
+                                <label for="@type.Value" id="text6">
+                                    @type.Text
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div><br />
+                <div class="row">
+                    <label asp-for="Longitude" class="col-xs-5">Longitude</label>
+                    <div class="col-xs-1"></div>
+                    <input name="longitude" class="col-xs-6" value="@Model.Longitude" type="text" required tabindex="3" />
+                    <span asp-validation-for="Longitude" class="text-danger"></span>
+                </div><br />
+                <div class="row">
+                    <label class="col-xs-5">Latitude</label>
+                    <div class="col-xs-1"></div>
+                    <input name="Latitude" class="col-xs-6" value="@Model.Latitude" type="text" required tabindex="4" />
+                    <span asp-validation-for="Latitude" class="text-danger"></span>
+                </div><br />
+                      <div class="row">
+                          <label class="col-xs-5">
+                              地区
+                          </label>
+                          <div class="col-xs-1"></div>
+                          @Html.DropDownList("District", null, new { required = "required" })
+                      </div><br />
+                <div class="row">
+                    <label class="col-xs-5">
+                        住所
+                    </label>
+                    <div class="col-xs-1"></div>
+                    <input name="Address" class="col-xs-6" value="@Model.Address" type="text" required tabindex="5" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div><br />
+                <div class="row">
+                    <label class="col-xs-5">
+                        開館時間
+                    </label>
+                    <div class="col-xs-1"></div>
+                    <input name="OpeningTime" class="col-xs-6" value="@Model.OpeningTime" type="text" tabindex="6" />
+                    <span asp-validation-for="OpeningTime" class="text-danger"></span>
+                </div><br />
+                <div class="row">
+                    <label class="col-xs-5">
+                        種類
+                    </label>
+                    <div class="col-xs-1"></div>
+
+                    @foreach (var type in ViewBag.Rating)
+                    {
+                        <div class="col-xs-2">
+                            <label class="radio-inline">
+                                <input type="radio" name="Rating" class="className" style="margin-top:15px" id="@type.Value" value="@type.Value" checked="@type.Selected" required tabindex="7" />
+                                <img src="~/images/@Html.Raw(@type.Text + ".png")" />
+                            </label>
+                        </div>
+                    }
+                </div><br />
+                <div id="btn1">
+                    <input type="submit" value="登録	" style="width:80px" class="btn btn-primary" tabindex="9" />
+                    <input type="button" style="width:80px" class="btn btn-primary" value="戻る	" onclick="history.back()" tabindex="10" />
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<style>
+    body {
+    }
+
+    form {
+      
+    }
+    #btn1{
+        float:right;
+    }
+    #text4 {
+        text-align: center;
+    }
+    #text6{
+        font-weight:normal;
+    }
+     #exist{
+        margin-left:40%;
+    }
+     label.error {
+        color: red;
+    }
+</style>

@@ -1,0 +1,100 @@
+﻿
+@model  TrainingProject.ViewModels.GasStationVM
+@using TrainingProject.Models;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <body>
+
+        <div class="col-xs-12 col-md-7">
+
+
+            <div class="dl-horizontal">
+                <h4 >
+                    <b>フィードバック</b><br /><br />
+                </h4>
+                <dl>
+
+                    <dt class="col-xs-6">
+                        ガソリンスタンド名
+
+                    </dt>
+                    <dd >
+                        @Html.DisplayFor(model => model.GasStationName)
+                    </dd>
+                    <dt class="col-xs-6">
+                        種類
+
+                    </dt>
+                    <dd>
+                        @{
+                            string renderGasType()
+                            {
+                                string result = "";
+                                foreach (var type in Model.Types)
+                                {
+                                    if (string.IsNullOrEmpty(result))
+                                    {
+                                        result += type;
+                                    }
+                                    else
+                                    {
+                                        result += ", " + type;
+                                    }
+                                }
+                                return result;
+                            }
+                        }
+                        @renderGasType()
+                    </dd>
+                    <dt class="col-xs-6">
+                        住所
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Address)
+                    </dd>
+                    <dt class="col-xs-6">
+                        開館時間
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.OpeningTime)
+                    </dd>
+                    <dt class="col-xs-6">
+                        評価
+                    </dt>
+                    <dd>
+                        <img src="~/images/@Html.Raw(@Model.Rating + ".png")" alt="@Model.Rating" />
+                    </dd>
+                </dl>
+
+                <h6> 投稿一覧</h6> <br />
+                @foreach (var item in Model.GasStationFeedback)
+                {
+
+                    <div id="feedback">
+                        <p>@item.FeedbackAt</p>
+                        <p>@item.Feedback</p>
+                    </div><br />
+                }
+                <div>
+                    <a asp-action="Index" asp-controller="GasStationList"><button id="btn4" type="submit" class="btn btn-primary">戻る</button>	</a>
+                </div>
+            </div>
+        </div>
+    </body>
+<style>
+    #feedback{
+        border:1px solid #000000;
+        margin-left:10%;
+        width:400px;
+        height:100px;
+    }
+    body{
+        
+    }
+    h4{margin-left:20%;}
+    #btn4{
+        margin-left:40%;
+    }
+</style>

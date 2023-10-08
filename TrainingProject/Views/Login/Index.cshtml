@@ -1,0 +1,65 @@
+﻿@model TrainingProject.Models.User
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_Layout";
+}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="col-md-offset-4 col-md-4" id="box">
+            <h2>
+                ガソリンスタンド管理
+            </h2>
+            <hr>
+            <form class="form-horizontal" asp-controller="Login" asp-action="Index" method="post" id="login_form">
+                <fieldset>
+                    <div class="form-group focus">
+                        <label asp-for="Email" class="col-md-4 control-label">メール</label>
+                        <div class="col-md-8">
+                            <input asp-for="Email" tabindex="1" name="Email" class="form-control" required type="text" autofocus />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="col-md-4 control-label">パスワード<</label>
+                        <div class="col-md-8">
+                            <input asp-for="Password" name="Password" tabindex="2" class="form-control" type="password" required />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <button type="submit" tabindex="3" class="btn btn-md btn-danger pull-right">ログイン </button>
+                        </div>
+
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    body {
+        background-image: linear-gradient(#23aa9a,#23aa9a);
+    }
+
+    #box {
+        border: 1px solid rgb(200, 200, 200);
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
+        background: rgba(200, 200, 200, 0.1);
+        border-radius: 4px;
+        top: 50px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #fff;
+    }
+
+    label.error {
+        color: red;
+    }
+</style>

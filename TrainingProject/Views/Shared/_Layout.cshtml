@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+
+    <div class="container">
+        @RenderBody()
+
+    </div>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+        @*DoubleClickRadio*@
+        <script type="text/javascript">
+            $(document).on('dblclick', '.className', function () {
+                if (this.checked) {
+                    $(this).prop('checked', false);
+                }
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).on('dblclick', '.className1', function () {
+                if (this.checked) {
+                    $(this).prop('checked', false);
+                }
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                //login
+                $("#login_form").validate({
+                    errorClass: 'error',
+                    rules: {
+                        Email: {
+                            required: true
+                        },
+                        Password: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        Email: {
+                            required: "メールを入力してください。"
+                        },
+                        Password:
+                        {
+                            required: "パスワード を入力してください。"
+                        }
+                    }
+
+                });
+
+
+                ///Add///
+                $("#add_form").validate({
+                    errorClass: 'error',
+                    rules: {
+                        GasStationName: {
+                            required: true,
+                            maxlength: 100
+                        }
+                        ,
+                        type: "required",
+                        Longitude:
+                        {
+                            number: true,
+                            required: true
+                        },
+                        Latitude: {
+                            number: true,
+                            required: true
+                        },
+                        Address: {
+                            required: true,
+                            maxlength: 200
+                        },
+                        OpeningTime: {
+                            maxlength: 50
+                        },
+                        searchDistrict: {
+                            required: true
+                        },
+                        typetype: "required"
+                    },
+                    messages: {
+                        GasStationName:
+                        {
+                            required: "ガソリンスタンド名を入力してください。",
+                            maxlength: "ガソリンスタンド名の長さは 100 文字を超えることはできません"
+                        },
+                        Longitude: {
+                            number: "正しい形式を入力してください",
+                            required: "Longitude を入力してください。"
+                        },
+
+                        Latitude:
+                        {
+                            number: "正しい形式を入力してください",
+                            required: "Latitude を入力してください。"
+                        },
+                        Address:
+                        {
+                            maxlength: "ガ住所の長さは200文字を超えてはなりません",
+                            required: "住所を入力してください。"
+                        },
+                        OpeningTime:
+                        {
+                            maxlength: "開館時間の長さは50文字を超えてはなりません"
+                        },
+                        searchDistrict:
+                        {
+                            required: "住所を入力してください。"
+                        },
+                        type: {
+                            required: "チェック項目"
+                        },
+                        typetype: {
+                            required: "チェック項目"
+                        }
+                    }
+                });
+
+                ///Edit///
+                $("#edit_form").validate({
+                    errorClass: 'error',
+                    rules: {
+                        GasStationName: {
+                            required: true,
+                            maxlength: 100
+                        },
+                        longitude:
+                        {
+                            number: true,
+                            required: true
+                        },
+                        Latitude: {
+                            number: true,
+                            required: true
+                        },
+                        Address: {
+                            required: true,
+                            maxlength: 200
+                        },
+                        OpeningTime: {
+                            maxlength: 50
+                        },
+                        Rating: {
+                            required: true
+                        },
+                        District: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        GasStationName:
+                        {
+                            required: "ガソリンスタンド名を入力してください。",
+                            maxlength: "ガソリンスタンド名の長さは 100 文字を超えることはできません"
+                        },
+                        longitude:
+                        {
+                            number: "正しい形式を入力してください",
+                            required: "Longitude を入力してください。"
+                        },
+
+                        Latitude:
+                        {
+                            number: "正しい形式を入力してください",
+                            required: "Latitude を入力してください。"
+                        },
+                        Address:
+                        {
+                            maxlength: "ガ住所の長さは 200 文字を超えてはなりません",
+                            required: "住所を入力してください。"
+                        },
+                        OpeningTime:
+                        {
+                            maxlength: "開館時間の長さは 50 文字を超えてはなりません"
+                        },
+                        type:
+                        {
+                            required: "住所を入力してください。"
+                        },
+                        Rating: {
+                            required: "チェック項目"
+                        },
+                        District: {
+                            required: "住所を入力してください。"
+                        }
+                    }
+                });
+            });
+
+        </script>
+    </environment>
+    <environment exclude="Development">
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"
+                asp-fallback-src="~/Identity/lib/jquery-validation/dist/jquery.validate.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator"
+                crossorigin="anonymous"
+                integrity="sha384-rZfj/ogBloos6wzLGpPkkOr/gpkBNLZ6b6yLy4o+ok+t/SAKlL5mvXLr0OXNi1Hp">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.9/jquery.validate.unobtrusive.min.js"
+                asp-fallback-src="~/Identity/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive"
+                crossorigin="anonymous"
+                integrity="sha384-ifv0TYDWxBHzvAk2Z0n8R434FL1Rlv/Av18DXE43N/1rvHyOG4izKst0f2iSLdds">
+        </script>
+    </environment>
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+</html>
